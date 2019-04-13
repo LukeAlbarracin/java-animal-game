@@ -13,6 +13,7 @@ public abstract class Pokemon implements BattleConditions {
 	protected int speed;
 	protected int health;
 	protected int level;
+	protected int evasiveness; // needs to start at 100
 	protected int turnsAsleep = 0;
 	protected int turnsConfused = 0;
 	protected int turnsFrozen = 0;
@@ -20,13 +21,12 @@ public abstract class Pokemon implements BattleConditions {
 	public void useMove(int move, Pokemon target) {
 		int index = move - 1;
 		MoveSet chosenMove = moveSet[index];
-		
 	}
 
 	public int damageAlgorithm (int attackerLevel, int attackPower, int arbAttack, int arbDef) {
 		Random rand = new Random();
 		int temp = rand.nextInt(256) + 217;
-		return (int) (((((((((2 * attackerLevel)/ 5) + 2) * arbAttack*attackPower) / arbDef) /50) +2) * temp) / 255);
+		return (int) (((((((((2 * attackerLevel)/ 5) + 2) * arbAttack * attackPower) / arbDef) /50) +2) * temp) / 255);
 	}
 
 	public void simStats (int level, int attack, int spAttack, int defense, int spDefense, int speed, int health) {
@@ -149,7 +149,15 @@ public abstract class Pokemon implements BattleConditions {
 	
 	public void setStatus(boolean status) {
 		this.status = status;
-	}	
+	}
+
+	public int getEvasiveness() {
+		return this.evasiveness;
+	}
+
+	public void setEvasiveness(int evasiveness) {
+		this.evasiveness = evasiveness;
+	}
 }
 
 
