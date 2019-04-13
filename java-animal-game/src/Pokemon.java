@@ -1,9 +1,10 @@
 import java.util.ArrayList;
-public abstract class Pokemon  {
+public abstract class Pokemon implements BattleConditions {
 	protected PokemonType pokemonType;
 	protected String name;
 	protected boolean status;
 	protected ArrayList<StatusCondition> conditions; 
+	protected MoveSet[] moveSet = {MoveSet.LEAF_BLADE, MoveSet.WATER_GUN, MoveSet.FLAMETHROWER,MoveSet.SPLASH};
 	protected int attack;
 	protected int spAttack;
 	protected int defense;
@@ -14,6 +15,12 @@ public abstract class Pokemon  {
 	protected int turnsAsleep = 0;
 	protected int turnsConfused = 0;
 	protected int turnsFrozen = 0;
+
+	public void useMove(int move, Pokemon target) {
+		int index = move - 1;
+		MoveSet chosenMove = moveSet[index];
+		
+	}
 
 	public void simStats (int level, int attack, int spAttack, int defense, int spDefense, int speed, int health) {
 		final double statSlope = 1.5;
@@ -139,7 +146,6 @@ public abstract class Pokemon  {
 }
 
 /*
-
 enum StatusMove  {
 	LOWER_ATTACK ()
 
@@ -167,13 +173,8 @@ enum StatusMove  {
 		this.successRate
 	}
 }
-
-enum MoveSet {
-	WATER_GUN("Water Gun", 40, 100,PokemonType.WATER, AttackCategory.SPECIAL);
-    private MoveSet (String name, int attackPower, int attackAcc, PokemonType attackType, AttackCategory attackCategory) {
-	
-	}
-	private MoveSet (String name, int attackPower, int attackAcc)
-}
-
 */
+
+
+
+

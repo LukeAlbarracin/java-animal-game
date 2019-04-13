@@ -1,6 +1,25 @@
 import java.util.Random;
 public interface BattleConditions {
 
+	default int calculateDamage (Pokemon attacker, Pokemon target, int attackPower, AttackCategory attackCategory) {
+		if (attackCategory == AttackCategory.PHYSICAL) {
+			return damageAlgorithm(attacker.getLevel(), attackPower, attacker.getAttack(), target.getDefense());
+		} else if (attackCategory == AttackCategory.SPECIAL) {
+			return damageAlgorithm(attacker.getLevel(), attackPower, attacker.getSpAttack(), target.getSpDefense());
+		} else if (attackCategory == AttackCategory.SPECIAL_WITH_UNIQUE_EFFECTS){
+			// Attacks like seismic toss, dragon rage 
+			return attackPower;
+		} else {
+			return 0;
+		}
+	}
+
+	default int damageAlgorithm (int attackerLevel, int attackPower, int arbAttack, int arbDef) {
+		Random rand = new Random();
+		int temp = rand.nextInt(256) + 217;
+		return (int) (((((((((2*attackerLevel)/5)+2)*arbAttack*attackPower)/arbDef)/50)+2)*temp)/255);
+	}
+
 	default void initiateAttack(Pokemon attacker, Pokemon target, int accuracy, int calculatedDamage) {
 		Random rand = new Random();
 		int temp = rand.nextInt(100);
