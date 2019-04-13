@@ -1,10 +1,11 @@
+import java.util.Random;
 import java.util.ArrayList;
 public abstract class Pokemon implements BattleConditions {
 	protected PokemonType pokemonType;
 	protected String name;
 	protected boolean status;
 	protected ArrayList<StatusCondition> conditions; 
-	protected MoveSet[] moveSet = {MoveSet.LEAF_BLADE, MoveSet.WATER_GUN, MoveSet.FLAMETHROWER,MoveSet.SPLASH};
+	protected MoveSet[] moveSet = {MoveSet.LEAF_BLADE, MoveSet.WATER_GUN, MoveSet.FLAMETHROWER, MoveSet.SPLASH};
 	protected int attack;
 	protected int spAttack;
 	protected int defense;
@@ -20,6 +21,12 @@ public abstract class Pokemon implements BattleConditions {
 		int index = move - 1;
 		MoveSet chosenMove = moveSet[index];
 		
+	}
+
+	public int damageAlgorithm (int attackerLevel, int attackPower, int arbAttack, int arbDef) {
+		Random rand = new Random();
+		int temp = rand.nextInt(256) + 217;
+		return (int) (((((((((2 * attackerLevel)/ 5) + 2) * arbAttack*attackPower) / arbDef) /50) +2) * temp) / 255);
 	}
 
 	public void simStats (int level, int attack, int spAttack, int defense, int spDefense, int speed, int health) {
@@ -145,35 +152,7 @@ public abstract class Pokemon implements BattleConditions {
 	}	
 }
 
-/*
-enum StatusMove  {
-	LOWER_ATTACK ()
 
-	int[] targetPosition; // 0 is self, 1 is enemy, 2 is ally, 3 is second enemy
-	int successRate;
-	StatusCondition condition;
-	int amount;
-	int extraDmg;
-
-	private StatusMove (int successRate, StatusCondition condition, int ...targetPosition) {
-		// Used for attacks that may inflict status conditions (e.g. Will-o-Wisp, Sludge Bomb, Stun Spore)
-		this.successRate = successRate;
-		this.condition = condition;
-		this.targetPosition = targetPosition;
-	}
-	private StatusMove (int successRate, int amount, int ...targetPosition) {
-		// Used for status changing moves (e.g. Agility, Sand-Attack, Minimize)
-		this.successRate = successRate;
-		this.amount = amount;
-		this.targetPosition = targetPosition;
-	}
-
-	private StatusMove (int successRate, int amount, int extraDmg, int ...targetPosition) {
-		// Used for attacks with varying damage or attacks different targets (e.g. Magnitude, Discharge, Bullet Seed)
-		this.successRate
-	}
-}
-*/
 
 
 
