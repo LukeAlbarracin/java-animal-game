@@ -1,5 +1,6 @@
 import java.util.Random;
 public interface BattleConditions {
+
 	default void initiateAttack(Pokemon attacker, Pokemon target, int accuracy, int calculatedDamage) {
 		Random rand = new Random();
 		int temp = rand.nextInt(100);

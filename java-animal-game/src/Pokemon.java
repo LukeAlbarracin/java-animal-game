@@ -135,6 +135,45 @@ public abstract class Pokemon  {
 	
 	public void setStatus(boolean status) {
 		this.status = status;
-	}
-	
+	}	
 }
+
+/*
+
+enum StatusMove  {
+	LOWER_ATTACK ()
+
+	int[] targetPosition; // 0 is self, 1 is enemy, 2 is ally, 3 is second enemy
+	int successRate;
+	StatusCondition condition;
+	int amount;
+	int extraDmg;
+
+	private StatusMove (int successRate, StatusCondition condition, int ...targetPosition) {
+		// Used for attacks that may inflict status conditions (e.g. Will-o-Wisp, Sludge Bomb, Stun Spore)
+		this.successRate = successRate;
+		this.condition = condition;
+		this.targetPosition = targetPosition;
+	}
+	private StatusMove (int successRate, int amount, int ...targetPosition) {
+		// Used for status changing moves (e.g. Agility, Sand-Attack, Minimize)
+		this.successRate = successRate;
+		this.amount = amount;
+		this.targetPosition = targetPosition;
+	}
+
+	private StatusMove (int successRate, int amount, int extraDmg, int ...targetPosition) {
+		// Used for attacks with varying damage or attacks different targets (e.g. Magnitude, Discharge, Bullet Seed)
+		this.successRate
+	}
+}
+
+enum MoveSet {
+	WATER_GUN("Water Gun", 40, 100,PokemonType.WATER, AttackCategory.SPECIAL);
+    private MoveSet (String name, int attackPower, int attackAcc, PokemonType attackType, AttackCategory attackCategory) {
+	
+	}
+	private MoveSet (String name, int attackPower, int attackAcc)
+}
+
+*/
