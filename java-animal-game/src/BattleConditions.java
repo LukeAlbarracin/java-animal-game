@@ -16,10 +16,21 @@ public interface BattleConditions {
 		}
 	}
 
+	default void calculateEffects (Pokemon target, int successRate, StatLevel statLevel, StatusChange[] statusChanges) {
+		Random rand = new Random();
+		int temp = rand.nextInt(100);
+		if (successRate < temp) {
+			if (statLevel != StatLevel.NOTHING) {
+				// figure out math
+			}
+		}
+
+	}
+
 	default void initiateAttack(Pokemon attacker, Pokemon target, int accuracy, int calculatedDamage) {
 		Random rand = new Random();
 		int temp = rand.nextInt(100);
-		if (accuracy < temp) {
+		if (accuracy > temp) {
 			successfulHit(attacker, target, accuracy, calculatedDamage);
 		} else {
 			failedHit(attacker);

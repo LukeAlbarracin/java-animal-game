@@ -1,6 +1,8 @@
 import java.util.Random;
 import java.util.ArrayList;
+import java.util.Queue;
 public abstract class Pokemon implements BattleConditions {
+	protected int ownerNumber = 1;
 	protected PokemonType pokemonType;
 	protected String name;
 	protected boolean status;
@@ -18,9 +20,47 @@ public abstract class Pokemon implements BattleConditions {
 	protected int turnsConfused = 0;
 	protected int turnsFrozen = 0;
 
-	public void useMove(int move, Pokemon target) {
+	public void useMove(int move) {
+		ArrayList<Pokemon> ownParty = App.partyOne;
+		ArrayList<Pokemon> enemyParty = App.partyTwo;
+		if ((this.ownerNumber % 2) == 0) {
+			ownParty = App.partyTwo;
+			enemyParty = App.partyOne;
+		} 
+
 		int index = move - 1;
+		// NEED TO ACCOUNT FOR RANDOM DAMAGE
 		MoveSet chosenMove = moveSet[index];
+		if (App.battleSize < 2) {
+			for (int i = 0; i < chosenMove.getTarget().getAllTargets().length; i++) {
+				if (chosenMove.getTarget().getAllTargets()[i] == 0) {
+					this.calculateDamage(this, ownParty.get(0),chosenMove.getAttackPower(), chosenMove.getAttackCategory());
+					if (chosenMove.getTarget2() == Target.NO_TARGET) {
+						
+					}
+				} else if (chosenMove.getTarget().getAllTargets()[i] == 3) {
+					this.calculateDamage(this, enemyParty.get(0), chosenMove.getAttackPower(), chosenMove.getAttackCategory());
+				}
+			}
+		} else if (App.battleSize > 3) {
+			for (int i = 0; i < chosenMove.getTarget().getAllTargets().length; i++) {
+				if (chosenMove.getTarget().getAllTargets()[i] < 2) {
+					this.calculateDamage(this, ownParty.get(chosenMove.getTarget().getAllTargets()[i]), chosenMove.getAttackPower(), chosenMove.getAttackCategory());
+				} else if (chosenMove.getTarget().getAllTargets()[i] > 2 && chosenMove.getTarget().getAllTargets()[i] < 5) {
+					this.calculateDamage(this, enemyParty.get(chosenMove.getTarget().getAllTargets()[i]-3), chosenMove.getAttackPower(), chosenMove.getAttackCategory());
+				}
+			}
+		} else {
+			for (int i = 0; i < chosenMove.getTarget().getAllTargets().length; i++) {
+				if (chosenMove.getTarget().getAllTargets()[i] < 4) {
+					this.calculateDamage(this, ownParty.get(chosenMove.getTarget().getAllTargets()[i]), chosenMove.getAttackPower(), chosenMove.getAttackCategory());
+				} else if (chosenMove.getTarget().getAllTargets()[i] > 3) {
+					this.calculateDamage(this, enemyParty.get(chosenMove.getTarget().getAllTargets()[i]-3), chosenMove.getAttackPower(), chosenMove.getAttackCategory());
+				}
+			}
+		}
+		//this.calculateDamage(this, target, chosenMove.attackPower, chosenMove.attackCategory);
+		//chosenMove.
 	}
 
 	public int damageAlgorithm (int attackerLevel, int attackPower, int arbAttack, int arbDef) {

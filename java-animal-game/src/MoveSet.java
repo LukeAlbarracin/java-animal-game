@@ -5,19 +5,20 @@ public enum MoveSet {
     SPLASH("splash!  But nothing happened...", 0, 100, PokemonType.WATER, AttackCategory.SPECIAL, Target.NO_TARGET, 0),
     WATER_GUN("water gun!", 40, 100,PokemonType.WATER, AttackCategory.SPECIAL, Target.CHOOSE_ONE, 0);
 
-    public String battleText = "";
-    public int attackPower = 0;
-    public int attackAcc = 0;
-    public PokemonType attackType;
-    public AttackCategory attackCategory;
-    public Target target;
-    public Target target2;
-    public int successRate;
-    public StatLevel statLevel;
-    public StatusChange[] statusChanges;
-    public int recoilDamage;
-    public int minDamage;
-    public int maxDamage;
+    private String battleText = "";
+    private int attackPower = 0;
+    private int attackAcc = 0;
+    private PokemonType attackType = PokemonType.NO_TYPE;
+    private AttackCategory attackCategory;
+    private Target target = Target.NO_TARGET;
+    private Target target2 = Target.NO_TARGET;
+    private int successRate = 0;
+    private StatLevel statLevel = StatLevel.NOTHING;
+    private int turnsDelayed = 0;
+    private StatusChange[] statusChanges = {};
+    private int recoilDamage = 0;
+    private int minDamage = 0;
+    private int maxDamage = 0;
 
     private MoveSet (String battleText, int attackPower, int attackAcc, PokemonType attackType, AttackCategory attackCategory, 
                     Target target, int successRate, StatLevel statLevel, StatusChange ...statusChanges) {
@@ -58,7 +59,6 @@ public enum MoveSet {
         this.statLevel = statLevel;
         this.target2 = target2;
         this.statusChanges = statusChanges;
-
         // Used for moves whose side effects contains a separate target (e.g. Close Combat, Draco Meteor, Memento)
     }
 
@@ -83,6 +83,74 @@ public enum MoveSet {
         this.attackType = attackType;
         this.attackCategory = attackCategory;
         this.target = target;
+    }
+
+    private MoveSet (String battleText, int attackPower, int attackAcc, PokemonType attackType, 
+                    AttackCategory attackCategory, Target target, int turnsDelayed, StatusChange ...statusChanges) {
+            this.battleText = battleText;
+            this.attackPower = attackPower;
+            this.attackAcc = attackAcc;
+            this.attackType = attackType;
+            this.attackCategory = attackCategory;
+            this.target = target;
+            this.turnsDelayed = turnsDelayed;
+            this.statusChanges = statusChanges;
+        }
+
+    public String getBattleText() {
+        return this.battleText;
+    }
+
+    public int getAttackPower() {
+        return this.attackPower;
+    }
+
+    public int getAttackAcc() {
+        return this.attackAcc;
+    }
+
+    public PokemonType getAttackType() {
+        return this.attackType;
+    }
+
+    public AttackCategory getAttackCategory() {
+        return this.attackCategory;
+    }
+
+    public Target getTarget() {
+        return this.target;
+    }
+
+    public Target getTarget2() {
+        return this.target2;
+    }
+
+    public int getSuccessRate() {
+        return this.successRate;
+    }
+
+    public StatLevel getStatLevel() {
+        return this.statLevel;
+    }
+
+    public int getTurnsDelayed() {
+        return this.turnsDelayed;
+    }
+
+    public StatusChange[] getStatusChanges() {
+        return this.statusChanges;
+    }
+
+    public int getRecoilDamage() {
+        return this.recoilDamage;
+    }
+
+    public int getMinDamage() {
+        return this.minDamage;
+    }
+
+    public int getMaxDamage() {
+        return this.maxDamage;
     }
 	
 }
