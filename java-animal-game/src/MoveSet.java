@@ -11,7 +11,7 @@ public enum MoveSet {
     private PokemonType attackType = PokemonType.NO_TYPE;
     private AttackCategory attackCategory;
     private Target target = Target.NO_TARGET;
-    private Target target2 = Target.NO_TARGET;
+    private Target secondaryTarget = Target.NO_TARGET;
     private int successRate = 0;
     private StatLevel statLevel = StatLevel.NOTHING;
     private int turnsDelayed = 0;
@@ -48,7 +48,7 @@ public enum MoveSet {
     }
     
     private MoveSet (String battleText, int attackPower, int attackAcc, PokemonType attackType, AttackCategory attackCategory, 
-                    Target target, int successRate, StatLevel statLevel, Target target2, StatusChange ...statusChanges) {
+                    Target target, int successRate, StatLevel statLevel, Target secondaryTarget, StatusChange ...statusChanges) {
         this.battleText = battleText;
         this.attackPower = attackPower;
         this.attackPower = attackAcc;
@@ -57,7 +57,7 @@ public enum MoveSet {
         this.target = target;
         this.successRate = successRate;
         this.statLevel = statLevel;
-        this.target2 = target2;
+        this.secondaryTarget = secondaryTarget;
         this.statusChanges = statusChanges;
         // Used for moves whose side effects contains a separate target (e.g. Close Combat, Draco Meteor, Memento)
     }
@@ -121,8 +121,8 @@ public enum MoveSet {
         return this.target;
     }
 
-    public Target getTarget2() {
-        return this.target2;
+    public Target getSecondaryTarget() {
+        return this.secondaryTarget;
     }
 
     public int getSuccessRate() {
