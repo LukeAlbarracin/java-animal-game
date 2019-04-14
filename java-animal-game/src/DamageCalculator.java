@@ -39,7 +39,7 @@ public class DamageCalculator {
 	private void matchStatusChanges (Pokemon target, StatusChange statusChange, StatLevel Amount) {
 		switch (statusChange) {
 			case ATTACK:
-				target.getBasePokemonStats().getAttack();
+				//target.getBasePokemonStats().getAttack()   target.getBasePokemonStats()
 		}
 	}
 }
