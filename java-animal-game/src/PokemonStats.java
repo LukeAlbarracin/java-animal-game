@@ -1,12 +1,11 @@
 public class PokemonStats implements Cloneable {
-	private int attack;
-	private int spAttack;
-	private int defense;
-	private int spDefense;
-	private int speed;
-	private int health;
-	private int evasiveness; // needs to start at 100
-	private boolean status;
+	protected int attack;
+	protected int spAttack;
+	protected int defense;
+	protected int spDefense;
+	protected int speed;
+	protected int health;
+	protected int evasiveness; // needs to start at 100
 	
 	public Object clone() throws CloneNotSupportedException {
 		PokemonStats statsClone = (PokemonStats) super.clone();
@@ -17,7 +16,6 @@ public class PokemonStats implements Cloneable {
 		statsClone.setSpeed(this.speed);
 		statsClone.setHealth(this.health);
 		statsClone.setEvasiveness(this.evasiveness);
-		statsClone.setStatus(this.status);
 		return statsClone;
 	}
 
@@ -71,14 +69,6 @@ public class PokemonStats implements Cloneable {
 	
 	public void setHealth(int health) {
 		this.health = health;
-	}
-	
-	public boolean getStatus() {
-		return this.status;
-	}
-	
-	public void setStatus(boolean status) {
-		this.status = status;
 	}
 
 	public int getEvasiveness() {

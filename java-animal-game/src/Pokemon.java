@@ -3,8 +3,9 @@ public class Pokemon {
 	private final int ownerNumber = 1; // SHOULD BE ABLE TO CHANGE FROM CONSTRUCTOR
 	private int pokemonLevel;
 	private PokemonType pokemonType;
+	private boolean status;
 	private PokemonStats basePokemonStats;
-	private PokemonStats tempPokemonStats;
+	private PokemonStatMod tempPokemonStats;
 	private String pokemonName;
 	private ArrayList<StatusCondition> conditions; 
 	private MoveSet[] moveSet = {};
@@ -68,6 +69,14 @@ public class Pokemon {
 	
 	public void setLevel(int pokemonLevel) {
 		this.pokemonLevel = pokemonLevel;
+	}
+
+	public boolean getStatus() {
+		return this.status;
+	}
+	
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 }
 
