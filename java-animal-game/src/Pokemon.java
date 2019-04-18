@@ -5,7 +5,7 @@ public class Pokemon {
 	private PokemonType pokemonType;
 	private boolean status;
 	private PokemonStats basePokemonStats;
-	private PokemonStatMod tempPokemonStats;
+	private PokemonStatMod tempPokemonStats; 
 	private String pokemonName;
 	private ArrayList<StatusCondition> conditions; 
 	private MoveSet[] moveSet = {};

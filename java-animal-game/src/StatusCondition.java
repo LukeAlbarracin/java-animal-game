@@ -1,5 +1,5 @@
 public enum StatusCondition {
-    POISONED, BURNED, ASLEEP, CONFUSED, PARALYZED, FROZEN ;
+    POISONED, BURNED, ASLEEP, CONFUSED, PARALYZED, FROZEN, DEFAULT_STATE ;
 
     public void simPoison (Pokemon user) {
         user.getTempPokemonStats().setHealth(user.getTempPokemonStats().getHealth() - 10);

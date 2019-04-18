@@ -7,8 +7,37 @@ public class PokemonStatMod extends PokemonStats {
 	private StatStage healthMod = StatStage.UNCHANGED;
 	private StatStage evasivenessMod = StatStage.UNCHANGED;	
 
-	public void setMod(StatStage statStage, int slider) {
-		statStage = statStage.getNextStage(statStage.getIndex(statStage), slider);
+	public void setMod(StatStage statStage, StatLevel statLevel) {
+		statStage = statStage.getNextStage(statStage.getIndex(statStage), statLevel.levelChange);
+	}
+
+	public void setVagueStat (StatusChange statusChange, StatLevel statLevel) {
+		switch (statusChange) {
+			case ATTACK :
+				setMod(this.attackMod, statLevel);
+				break;
+			case SPECIAL_ATTACK :
+				setMod(this.spAttackMod, statLevel);
+				break;
+			case DEFENSE :
+				setMod(this.defenseMod, statLevel);
+				break;
+			case SPECIAL_DEFENSE :
+				setMod(this.spDefenseMod, statLevel);
+				break;
+			case SPEED :
+				setMod(this.speedMod, statLevel);
+				break;
+			case HEALTH :
+				setMod(this.healthMod, statLevel);
+				break;
+			case EVASIVENESS :
+				setMod(this.evasivenessMod, statLevel);
+				break;
+			default :
+				break;
+
+		}
 	}
 
 	@Override

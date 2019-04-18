@@ -30,7 +30,13 @@ public class DamageCalculator {
 		int rand = new Random().nextInt(100);
 		if (chosenMove.getSuccessRate() > rand) {
 			for (int i = 0; i < chosenMove.getStatusChanges().length; i++) {
-				
+				if (chosenMove.getStatusChanges()[i].statusCondition != StatusCondition.DEFAULT_STATE) {
+					target.setConditions(chosenMove.getStatusChanges()[i].statusCondition);
+				} else {
+					target.getTempPokemonStats()
+						.setVagueStat(chosenMove.getStatusChanges()[i].statusCondition, chosenMove.getStatLevel());
+
+				}
 			}
 		}
 

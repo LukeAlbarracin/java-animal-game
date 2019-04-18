@@ -17,7 +17,7 @@ public class PokemonStats implements Cloneable {
 		statsClone.setHealth(this.health);
 		statsClone.setEvasiveness(this.evasiveness);
 		return statsClone;
-	}
+	} 
 
 	public void levelUp () {
 		// Do some math stuff
