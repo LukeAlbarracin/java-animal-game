@@ -1,56 +1,56 @@
 import java.util.ArrayList;
 public class Pokemon {
-	protected final int ownerNumber = 1; // SHOULD BE ABLE TO CHANGE FROM CONSTRUCTOR
+	protected int ownerNumber = 1; // SHOULD BE ABLE TO CHANGE FROM CONSTRUCTOR
 	protected int pokemonLevel;
-	protected PokemonType pokemonType;
+	protected PokeType pokemonType;
 	protected boolean status = true;
-	protected PokemonStats basePokemonStats;
-	protected PokemonStatMod tempPokemonStats; 
+	protected PokeStats baseStats;
+	protected TempStats tempStats; 
 	protected String pokemonName;
 	protected ArrayList<StatusCondition> conditions = new ArrayList<StatusCondition>();
-	protected MoveSet[] moveSet = {MoveSet.SPLASH, MoveSet.WATER_GUN};
- 	
-	private void useMove(int moveNumber, Pokemon enemy) {
-		MoveSet chosenMove = moveSet[moveNumber];
+	protected Moves[] moveSet = {Moves.SPLASH, Moves.WATER_GUN};
+	 
+	void useMove(int moveNumber, Pokemon enemy) {
+		Moves chosenMove = moveSet[moveNumber];
 		int[] allTargets = chosenMove.getTarget().getAllTargets();
 	
 		for (int i = 0; i < allTargets.length; i++) {
 			if (allTargets[i] == 3) {
-				 App.damageCalc.calcDamage(this, enemy, chosenMove);
+				DamageEngine.getInstance().calcDamage(this, enemy, chosenMove);
 			} 
 		} 
 
 		if (chosenMove.getSecondaryTarget() == Target.SELF_INFLICT) {
-			tempPokemonStats.setHealth(tempPokemonStats.getHealth() - chosenMove.getAttackPower());
+			tempStats.setHealth(tempStats.getHealth() - chosenMove.getAttackPower());
 		} else if (chosenMove.getSecondaryTarget() == Target.RECOIL) {
-			tempPokemonStats.setHealth(tempPokemonStats.getHealth() - chosenMove.getAttackPower());
+			tempStats.setHealth(tempStats.getHealth() - chosenMove.getAttackPower());
 			System.out.println("It's hit with recoil");
 		}
 		
 	}
 
-
 	public void levelUp () {
-		basePokemonStats.levelUp();
-		tempPokemonStats.levelUp();
+		baseStats.levelUp();
+		tempStats.levelUp();
 	} // UPDATE CODE ... should be moved to PokemonStats class???
 	
 	private void resetStats () {}
 
 	public void reduceHealth (int damage) {
-		tempPokemonStats.setHealth(tempPokemonStats.getHealth() - damage);
+		tempStats.setHealth(tempStats.getHealth() - damage);
 	}
 
-	public PokemonStats getTempPokemonStats() {
-		return this.tempPokemonStats;
+	public TempStats getTempPokemonStats() {
+		return this.tempStats;
 	}
 
-	public void setTempPokemonStats(StatusChange statusChange, StatLevel statLevel) {
-		this.tempPokemonStats.setVagueStat(statusChange, statLevel);
+
+	public void setTempPokemonStats(StatusChange statusChange, Increment statLevel) {
+		this.tempStats.setVagueStat(statusChange, statLevel);
 	}
 
-	public PokemonStats getBasePokemonStats() {
-		return this.basePokemonStats;
+	public PokeStats getBasePokemonStats() {
+		return this.baseStats;
 	}
 	
 	public void setConditions (StatusCondition condition) {
@@ -69,10 +69,6 @@ public class Pokemon {
 	
 	public int getPokemonLevel() {
 		return this.pokemonLevel;
-	}
-	
-	public void setLevel(int pokemonLevel) {
-		this.pokemonLevel = pokemonLevel;
 	}
 
 	public boolean getStatus() {

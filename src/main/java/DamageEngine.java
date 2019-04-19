@@ -1,14 +1,14 @@
 import java.util.Random;
-class DamageCalculator {
-	private static DamageCalculator calc;
+class DamageEngine {
+	private static DamageEngine calc;
 
-	public static DamageCalculator getInstance() {
+	private DamageEngine() {}
+
+	public static DamageEngine getInstance() {
 		return calc;
 	}
 
-	private DamageCalculator() {}
-
-	public void calcDamage (Pokemon attacker, Pokemon target, MoveSet chosenMove) {
+	public void calcDamage (Pokemon attacker, Pokemon target, Moves chosenMove) {
 		if (chosenMove.getAttackCategory() == AttackCategory.PHYSICAL) {
 			int damage = calcDamage(attacker.getPokemonLevel(), chosenMove.getAttackPower(), attacker.getTempPokemonStats().getAttack(), target.getTempPokemonStats().getDefense());
 			initiateAttack (attacker, target, chosenMove, damage);
@@ -18,15 +18,15 @@ class DamageCalculator {
 		}
 	}
 
-	private int calcDamage(int pokemonLevel, int attackPower, int arbAttack, int arbDef) {
+	private int calcDamage(int level, int attackPower, int xAttack, int xDefense) {
 		int rand = new Random().nextInt(256) + 39;
-		return (int) (((((((((2*pokemonLevel)/5)+2)*arbAttack*attackPower)/arbDef)/50)+2)*rand)/255);
+		return (int) (((((((((2*level)/5)+2)*xAttack*attackPower)/xDefense)/50)+2)*rand)/255);
 	}
 	
-	private void initiateAttack(Pokemon attacker, Pokemon target, MoveSet chosenMove, int damage) {
+	private void initiateAttack(Pokemon user, Pokemon target, Moves chosenMove, int damage) {
 		int rand = new Random().nextInt(100);
 		if (rand >= chosenMove.getAttackAcc()) {
-			System.out.println(attacker.getPokemonName() + "'s attack missed...'");
+			System.out.println(user.getPokemonName() + "'s attack missed...'");
 		} else {
 			// MAKE SOUND EFFECT?
 			target.reduceHealth(damage);
@@ -34,7 +34,7 @@ class DamageCalculator {
 		}
 	}
 	
-	private void calculateEffects (Pokemon target, MoveSet chosenMove) {
+	private void calculateEffects (Pokemon target, Moves chosenMove) {
 		int rand = new Random().nextInt(100);
 		if (chosenMove.getSuccessRate() > rand) {
 			for (int i = 0; i < chosenMove.getStatusChanges().length; i++) {

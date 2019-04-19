@@ -1,4 +1,4 @@
-public class PokemonStats implements Cloneable {
+public class PokeStats implements Cloneable {
 	protected int attack = 15;
 	protected int spAttack = 10;
 	protected int defense = 15;
@@ -8,7 +8,7 @@ public class PokemonStats implements Cloneable {
 	protected int evasiveness = 100; // needs to start at 100
 	
 	public Object clone() throws CloneNotSupportedException {
-		PokemonStats statsClone = (PokemonStats) super.clone();
+		PokeStats statsClone = (PokeStats) super.clone();
 		statsClone.setAttack(this.attack);
 		statsClone.setSpAttack(this.spAttack);
 		statsClone.setDefense(this.defense);

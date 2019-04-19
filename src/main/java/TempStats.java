@@ -1,13 +1,13 @@
-public class PokemonStatMod extends PokemonStats {
-    private StatStage attackMod = StatStage.UNCHANGED;
-	private StatStage spAttackMod = StatStage.UNCHANGED;
-	private StatStage defenseMod = StatStage.UNCHANGED;
-	private StatStage spDefenseMod = StatStage.UNCHANGED;
-	private StatStage speedMod = StatStage.UNCHANGED;
-	private StatStage healthMod = StatStage.UNCHANGED;
-	private StatStage evasivenessMod = StatStage.UNCHANGED;	
+public class TempStats extends PokeStats {
+    private StatsModifier attackMod = StatsModifier.UNCHANGED;
+	private StatsModifier spAttackMod = StatsModifier.UNCHANGED;
+	private StatsModifier defenseMod = StatsModifier.UNCHANGED;
+	private StatsModifier spDefenseMod = StatsModifier.UNCHANGED;
+	private StatsModifier speedMod = StatsModifier.UNCHANGED;
+	private StatsModifier healthMod = StatsModifier.UNCHANGED;
+	private StatsModifier evasivenessMod = StatsModifier.UNCHANGED;	
 
-	public PokemonStatMod() {
+	public TempStats() {
 		this.attack = 15;
 		this.spAttack = 10;
 		this.defense = 15;
@@ -17,11 +17,11 @@ public class PokemonStatMod extends PokemonStats {
 		this.evasiveness = 100;
 	}
 
-	public void setMod(StatStage statStage, StatLevel statLevel) {
+	public void setMod(StatsModifier statStage, Increment statLevel) {
 		statStage = statStage.getNextStage(statStage.getIndex(statStage), statLevel.levelChange);
 	}
 
-	public void setVagueStat (StatusChange statusChange, StatLevel statLevel) {
+	public void setVagueStat (StatusChange statusChange, Increment statLevel) {
 		switch (statusChange) {
 			case ATTACK :
 				setMod(this.attackMod, statLevel);
@@ -86,13 +86,13 @@ public class PokemonStatMod extends PokemonStats {
 	}
 
 	public void resetStats() {
-		this.attackMod = StatStage.UNCHANGED;
-		this.spAttackMod = StatStage.UNCHANGED;
-		this.defenseMod = StatStage.UNCHANGED;
-		this.spDefenseMod = StatStage.UNCHANGED;
-		this.speedMod = StatStage.UNCHANGED;
-		this.healthMod = StatStage.UNCHANGED;
-		this.evasivenessMod = StatStage.UNCHANGED;	
+		this.attackMod = StatsModifier.UNCHANGED;
+		this.spAttackMod = StatsModifier.UNCHANGED;
+		this.defenseMod = StatsModifier.UNCHANGED;
+		this.spDefenseMod = StatsModifier.UNCHANGED;
+		this.speedMod = StatsModifier.UNCHANGED;
+		this.healthMod = StatsModifier.UNCHANGED;
+		this.evasivenessMod = StatsModifier.UNCHANGED;	
 	}
 
 }
