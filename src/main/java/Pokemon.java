@@ -1,15 +1,15 @@
 import java.util.ArrayList;
 public class Pokemon {
-	private final int ownerNumber = 1; // SHOULD BE ABLE TO CHANGE FROM CONSTRUCTOR
-	private int pokemonLevel;
-	private PokemonType pokemonType;
-	private boolean status;
-	private PokemonStats basePokemonStats;
-	private PokemonStatMod tempPokemonStats; 
-	private String pokemonName;
-	private ArrayList<StatusCondition> conditions; 
-	private MoveSet[] moveSet = {};
-	
+	protected final int ownerNumber = 1; // SHOULD BE ABLE TO CHANGE FROM CONSTRUCTOR
+	protected int pokemonLevel;
+	protected PokemonType pokemonType;
+	protected boolean status = true;
+	protected PokemonStats basePokemonStats;
+	protected PokemonStatMod tempPokemonStats; 
+	protected String pokemonName;
+	protected ArrayList<StatusCondition> conditions = new ArrayList<StatusCondition>();
+	protected MoveSet[] moveSet = {MoveSet.SPLASH, MoveSet.WATER_GUN};
+ 	
 	private void useMove(int moveNumber, Pokemon enemy) {
 		MoveSet chosenMove = moveSet[moveNumber];
 		int[] allTargets = chosenMove.getTarget().getAllTargets();
@@ -43,6 +43,10 @@ public class Pokemon {
 
 	public PokemonStats getTempPokemonStats() {
 		return this.tempPokemonStats;
+	}
+
+	public void setTempPokemonStats(StatusChange statusChange, StatLevel statLevel) {
+		this.tempPokemonStats.setVagueStat(statusChange, statLevel);
 	}
 
 	public PokemonStats getBasePokemonStats() {

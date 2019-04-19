@@ -7,6 +7,16 @@ public class PokemonStatMod extends PokemonStats {
 	private StatStage healthMod = StatStage.UNCHANGED;
 	private StatStage evasivenessMod = StatStage.UNCHANGED;	
 
+	public PokemonStatMod() {
+		this.attack = 15;
+		this.spAttack = 10;
+		this.defense = 15;
+		this.spDefense = 10;
+		this.speed = 10;
+		this.health = 25;
+		this.evasiveness = 100;
+	}
+
 	public void setMod(StatStage statStage, StatLevel statLevel) {
 		statStage = statStage.getNextStage(statStage.getIndex(statStage), statLevel.levelChange);
 	}
