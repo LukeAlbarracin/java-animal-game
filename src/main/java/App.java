@@ -28,7 +28,8 @@ public class App {
        int foo = Integer.parseInt(s);
        sc.close();
        mew1.useMove(foo, mew2);
-       System.out.println("Remaining health of " + mew2.getTempPokemonStats().getHealth());
+
+       System.out.println("Remaining health of " + mew2.getBasePokemonStats().getHealth());
        
        //System.out.println("Mew 2 health : " + mew2.getHealth1());
             

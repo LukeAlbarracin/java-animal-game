@@ -1,11 +1,14 @@
+import java.util.HashMap;
+import java.util.Random;
 public class PokeStats implements Cloneable {
-	protected int attack;
-	protected int spAttack;
-	protected int defense;
-	protected int spDefense;
-	protected int speed;
-	protected int health;
-	// needs to start at 100
+	private int attack;
+	private int spAttack;
+	private int defense;
+	private int spDefense;
+	private int speed;
+	private int health;
+	private int level;
+	private TempStats tempStats = new TempStats();
 	
 	public PokeStats () {
 		this.attack = 10;
@@ -14,9 +17,11 @@ public class PokeStats implements Cloneable {
 		this.spDefense = 10;
 		this.speed = 10;
 		this.health = 25;
+		this.level = 25;
 	}
 
-	public PokeStats (int attack, int spAttack, int defense, int spDefense, int speed, int health) {
+	public PokeStats (int level, int attack, int spAttack, int defense, int spDefense, int speed, int health) {
+		this.level = level;
 		this.attack = attack;
 		this.spAttack = spAttack;
 		this.defense = defense;
@@ -40,8 +45,15 @@ public class PokeStats implements Cloneable {
 		// Do some math stuff
 	}
 
+	public TempStats getTempStats() {
+		return this.tempStats;
+	}
+
 	public int getAttack() {
-		return this.attack;
+		Stats stat = Stats.ATTACK;
+		int eValue = (tempStats.effortValues.containsKey(stat) ? 0 : tempStats.effortValues.get(stat));
+		double mod = (tempStats.statMods.containsKey(stat) ? 1 : tempStats.statMods.get(stat).getValue());
+		return (int) ((((this.attack * 2 + tempStats.iValue + (eValue/4)) * (this.level/100)) + 5) * mod);
 	}
 	
 	public void setAttack(int attack) {
@@ -49,7 +61,10 @@ public class PokeStats implements Cloneable {
 	}
 	
 	public int getSpAttack() {
-		return this.spAttack;
+		Stats stat = Stats.SP_ATTACK;
+		int eValue = (tempStats.effortValues.containsKey(stat) ? 0 : tempStats.effortValues.get(stat));
+		double mod = (tempStats.statMods.containsKey(stat) ? 1 : tempStats.statMods.get(stat).getValue());
+		return (int) ((((this.spAttack * 2 + tempStats.iValue + (eValue/4)) * (this.level/100)) + 5) * mod);
 	}
 
 	public void setSpAttack(int spAttack) {
@@ -57,7 +72,10 @@ public class PokeStats implements Cloneable {
 	}
 	
 	public int getDefense() {
-		return this.defense;
+		Stats stat = Stats.DEFENSE;
+		int eValue = (tempStats.effortValues.containsKey(stat) ? 0 : tempStats.effortValues.get(stat));
+		double mod = (tempStats.statMods.containsKey(stat) ? 1 : tempStats.statMods.get(stat).getValue());
+		return (int) ((((this.defense * 2 + tempStats.iValue + (eValue/4)) * (this.level/100)) + 5) * mod);
 	}
 	
 	public void setDefense(int defense) {
@@ -65,7 +83,10 @@ public class PokeStats implements Cloneable {
 	}
 
 	public int getSpDefense() {
-		return this.spDefense;
+		Stats stat = Stats.SP_DEFENSE;
+		int eValue = (tempStats.effortValues.containsKey(stat) ? 0 : tempStats.effortValues.get(stat));
+		double mod = (tempStats.statMods.containsKey(stat) ? 1 : tempStats.statMods.get(stat).getValue());
+		return (int) ((((this.spDefense * 2 + tempStats.iValue + (eValue/4)) * (this.level/100)) + 5) * mod);
 	}
 
 	public void setSpDefense(int spDefense) {
@@ -73,14 +94,31 @@ public class PokeStats implements Cloneable {
 	}
 	
 	public int getSpeed() {
-		return this.speed;
+		Stats stat = Stats.SPEED;
+		int eValue = (tempStats.effortValues.containsKey(stat) ? 0 : tempStats.effortValues.get(stat));
+		double mod = (tempStats.statMods.containsKey(stat) ? 1 : tempStats.statMods.get(stat).getValue());
+		return (int) ((((this.speed * 2 + tempStats.iValue + (eValue/4)) * (this.level/100)) + 5) * mod);
 	}
 	
 	public void setSpeed(int speed) {
 		this.speed = speed;
 	}
 	
+	public int getHealth() {
+		Stats stat = Stats.HEALTH;
+		int eValue = (tempStats.effortValues.containsKey(stat) ? 0 : tempStats.effortValues.get(stat));
+		return (int) (((tempStats.tempHealth * 2 + (eValue/4)) * (this.level/100)) + this.level + 10);
+	}
+
 	public void setHealth(int health) {
 		this.health = health;
+	}
+
+	public int getTempHealth() {
+		return tempStats.tempHealth;
+	}
+
+	public int getLevel() {
+		return this.level;
 	}
 }

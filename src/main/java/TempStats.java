@@ -1,3 +1,70 @@
+import java.util.Random;
+import java.util.HashMap;
+import java.util.Map;
+
+public class TempStats {
+	public final int EVASIVENESS = 100;
+	public final int iValue = new Random().nextInt(32);
+	public int tempHealth;
+	public HashMap<Stats,StatsMods> statMods = new HashMap<>(Map.of(Stats.ATTACK, StatsMods.DEFAULT,
+																	Stats.SP_ATTACK, StatsMods.DEFAULT,
+																	Stats.DEFENSE, StatsMods.DEFAULT,
+																	Stats.SP_DEFENSE, StatsMods.DEFAULT,
+																	Stats.SPEED, StatsMods.DEFAULT,
+																	Stats.EVASIVENESS, StatsMods.DEFAULT,
+																	Stats.ACCURACY, StatsMods.DEFAULT));
+	public HashMap<Stats,Integer> effortValues = new HashMap<>(Map.of(Stats.ATTACK, 0,
+																	  Stats.SP_ATTACK, 0,
+																	  Stats.DEFENSE, 0,
+																	  Stats.SP_DEFENSE, 0,
+																	  Stats.SPEED, 0,
+																	  Stats.HEALTH, 0));
+
+	public void setMod(StatsMods statStage, Increment statLevel) {
+		statStage = statStage.getNextStage(statStage.getIndex(statStage), statLevel.levelChange);
+	}
+
+	public void matchStat (StatusChange statusChange, Increment statLevel) {
+		// HANDLE IF +- 6 STAGES, AND FOR STAGE 0 MAKE SURE NOTHING HAPPENS
+		switch (statusChange) {
+			case ATTACK :
+				setMod(this.statMods.get(Stats.ATTACK), statLevel);
+				break;
+			case SPECIAL_ATTACK :
+				setMod(this.statMods.get(Stats.SP_ATTACK), statLevel);
+				break;
+			case DEFENSE :
+				setMod(this.statMods.get(Stats.DEFENSE), statLevel);
+				break;
+			case SPECIAL_DEFENSE :
+				setMod(this.statMods.get(Stats.SP_DEFENSE), statLevel);
+				break;
+			case SPEED :
+				setMod(this.statMods.get(Stats.SPEED), statLevel);
+				break;
+			case EVASIVENESS :
+				setMod(this.statMods.get(Stats.EVASIVENESS), statLevel);
+				break;
+			default :
+				break;
+		}
+		if (statLevel.levelChange != 0) {
+			System.out.println(" " + statusChange.battleText + " " + statLevel.statText);
+			System.out.println("-------------");
+		} else {
+			System.out.println(" did not change...");
+			System.out.println("-------------");
+		}
+	}
+
+	public void setTempHealth (int health) {
+		this.tempHealth = health;
+	}
+
+}
+
+/* import java.util.HashMap;
+import java.util.Random;
 public class TempStats extends PokeStats {
     private StatsModifier attackMod = StatsModifier.UNCHANGED;
 	private StatsModifier spAttackMod = StatsModifier.UNCHANGED;
@@ -6,6 +73,9 @@ public class TempStats extends PokeStats {
 	private StatsModifier speedMod = StatsModifier.UNCHANGED;
 	private StatsModifier evasivenessMod = StatsModifier.UNCHANGED;
 	private final int evasiveness = 100;
+	private int iValue; // individual value
+	private HashMap<Stats, Integer> effortValues = new HashMap<>();
+	
 
 	public TempStats() {
 		attackMod = StatsModifier.UNCHANGED;
@@ -14,6 +84,7 @@ public class TempStats extends PokeStats {
 		spDefenseMod = StatsModifier.UNCHANGED;
 		speedMod = StatsModifier.UNCHANGED;
 		evasivenessMod = StatsModifier.UNCHANGED;
+		this.iValue = new Random().nextInt(32);
 	}
 
 	public TempStats(StatsModifier attackMod, StatsModifier spAttackMod, StatsModifier defenseMod, StatsModifier spDefenseMod,
@@ -64,36 +135,32 @@ public class TempStats extends PokeStats {
 
 	@Override
 	public int getAttack() {
-		return (int) (super.attack * this.attackMod.getValue());
+		return (int) (super.getAttack() * this.attackMod.getValue());
 	}
 
 	@Override
 	public int getSpAttack() {
-		return (int) (super.spAttack * this.spAttackMod.getValue());
+		return (int) (super.getSpAttack() * this.spAttackMod.getValue());
 	}
 
 	@Override
 	public int getDefense() {
-		return (int) (super.defense * this.defenseMod.getValue());
+		return (int) (super.getDefense() * this.defenseMod.getValue());
 	}
 
 	@Override
 	public int getSpDefense() {
-		return (int) (super.spDefense * this.spDefenseMod.getValue());
+		return (int) (super.getSpDefense() * this.spDefenseMod.getValue());
 	}
 
 	@Override
 	public int getSpeed() {
-		return (int) (super.speed * this.speedMod.getValue());
+		return (int) (super.getSpeed() * this.speedMod.getValue());
 	}
 
 	@Override
 	public void setHealth(int health) {
 		super.health = health;
-	}
-
-	public int getHealth() {
-		return this.health;
 	}
 
 	public int getEvasiveness() {
@@ -110,3 +177,5 @@ public class TempStats extends PokeStats {
 	}
 
 }
+
+*/

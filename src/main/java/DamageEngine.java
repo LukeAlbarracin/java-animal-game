@@ -14,10 +14,10 @@ class DamageEngine {
 
 	public void calcDamage (Pokemon attacker, Pokemon target, Moves chosenMove) {
 		if (chosenMove.getAttackCategory() == AttackCategory.PHYSICAL) {
-			int damage = calcDamage(attacker.getPokemonLevel(), chosenMove.getAttackPower(), attacker.getTempPokemonStats().getAttack(), target.getTempPokemonStats().getDefense());
+			int damage = calcDamage(attacker.getLevel(), chosenMove.getAttackPower(), attacker.getBasePokemonStats().getAttack(), target.getBasePokemonStats().getDefense());
 			initiateAttack (attacker, target, chosenMove, damage);
 		} else if (chosenMove.getAttackCategory() == AttackCategory.SPECIAL) {
-			int damage = calcDamage(attacker.getPokemonLevel(), chosenMove.getAttackPower(), attacker.getTempPokemonStats().getSpAttack(), target.getTempPokemonStats().getSpDefense());
+			int damage = calcDamage(attacker.getLevel(), chosenMove.getAttackPower(), attacker.getBasePokemonStats().getAttack(), target.getBasePokemonStats().getSpDefense());
 			initiateAttack (attacker, target, chosenMove, damage);
 		}
 	}
