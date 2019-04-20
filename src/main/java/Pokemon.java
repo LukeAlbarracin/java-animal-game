@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 public class Pokemon {
-	protected int ownerNumber = 1; // SHOULD BE ABLE TO CHANGE FROM CONSTRUCTOR
+	protected int ownerNumber; // SHOULD BE ABLE TO CHANGE FROM CONSTRUCTOR
 	protected int pokemonLevel;
 	protected PokeType pokemonType;
 	protected boolean status = true;
@@ -8,25 +8,23 @@ public class Pokemon {
 	protected TempStats tempStats; 
 	protected String pokemonName;
 	protected ArrayList<StatusCondition> conditions = new ArrayList<StatusCondition>();
-	protected Moves[] moveSet = {Moves.SPLASH, Moves.WATER_GUN};
+	protected Moves[] moveSet = {Moves.GROWL, Moves.WATER_GUN, Moves.FLAMETHROWER, Moves.LEAF_BLADE};
 	 
 	void useMove(int moveNumber, Pokemon enemy) {
-		Moves chosenMove = moveSet[moveNumber];
+		Moves chosenMove = moveSet[moveNumber-1];
 		int[] allTargets = chosenMove.getTarget().getAllTargets();
 	
-		System.out.println("enemy:" + ((enemy == null) ? "is null": "not null"));
-		System.out.println("chose move: " + ((chosenMove == null) ? "is null": "not null"));
+		//System.out.println("enemy:" + ((enemy == null) ? "is null": "not null"));
+		//System.out.println("chose move: " + ((chosenMove == null) ? "is null": "not null"));
 
 		for (int i = 0; i < allTargets.length; i++) {
 			if (allTargets[i] == 3) {
 				DamageEngine engine = DamageEngine.getInstance();
-				System.out.println("engine: " + ((engine == null) ? "is null": "not null"));
+				//System.out.println("engine: " + ((engine == null) ? "is null": "not null"));
 				engine.calcDamage(this, enemy, chosenMove); 
 				
 			} 
 		} 
-
-		System.out.println("Get here.");
 
 		if (chosenMove.getSecondaryTarget() == Target.SELF_INFLICT) {
 			tempStats.setHealth(tempStats.getHealth() - chosenMove.getAttackPower());
@@ -49,14 +47,20 @@ public class Pokemon {
 	}
 
 	public TempStats getTempPokemonStats() {
+		if (this.tempStats == null) {
+			return new TempStats();
+		}
 		return this.tempStats;
 	}
 
 	public void setTempPokemonStats(StatusChange statusChange, Increment statLevel) {
-		this.tempStats.setVagueStat(statusChange, statLevel);
+		this.tempStats.matchStat(statusChange, statLevel);
 	}
 
 	public PokeStats getBasePokemonStats() {
+		if (this.baseStats == null) {
+			return new PokeStats();
+		}
 		return this.baseStats;
 	}
 	

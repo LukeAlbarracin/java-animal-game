@@ -1,12 +1,30 @@
 public class PokeStats implements Cloneable {
-	protected int attack = 15;
-	protected int spAttack = 10;
-	protected int defense = 15;
-	protected int spDefense = 10;
-	protected int speed = 10;
-	protected int health = 25;
-	protected int evasiveness = 100; // needs to start at 100
+	protected int attack;
+	protected int spAttack;
+	protected int defense;
+	protected int spDefense;
+	protected int speed;
+	protected int health;
+	// needs to start at 100
 	
+	public PokeStats () {
+		this.attack = 10;
+		this.spAttack = 10;
+		this.defense = 10;
+		this.spDefense = 10;
+		this.speed = 10;
+		this.health = 25;
+	}
+
+	public PokeStats (int attack, int spAttack, int defense, int spDefense, int speed, int health) {
+		this.attack = attack;
+		this.spAttack = spAttack;
+		this.defense = defense;
+		this.spDefense = spDefense;
+		this.speed = speed;
+		this.health = health;
+	}
+
 	public Object clone() throws CloneNotSupportedException {
 		PokeStats statsClone = (PokeStats) super.clone();
 		statsClone.setAttack(this.attack);
@@ -15,7 +33,6 @@ public class PokeStats implements Cloneable {
 		statsClone.setSpDefense(this.spDefense);
 		statsClone.setSpeed(this.speed);
 		statsClone.setHealth(this.health);
-		statsClone.setEvasiveness(this.evasiveness);
 		return statsClone;
 	} 
 
@@ -62,20 +79,8 @@ public class PokeStats implements Cloneable {
 	public void setSpeed(int speed) {
 		this.speed = speed;
 	}
-
-	public int getHealth() {
-		return this.health;
-	}
 	
 	public void setHealth(int health) {
 		this.health = health;
-	}
-
-	public int getEvasiveness() {
-		return this.evasiveness;
-	}
-
-	public void setEvasiveness(int evasiveness) {
-		this.evasiveness = evasiveness;
 	}
 }

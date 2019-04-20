@@ -6,7 +6,7 @@ class DamageEngine {
 
 	public static DamageEngine getInstance() {
 		if (_instance == null) {
-			System.out.println("Instance is null");
+			//System.out.println("Instance is null");
 			_instance = new DamageEngine();
 		} 
 		return _instance;
@@ -24,28 +24,39 @@ class DamageEngine {
 
 	private int calcDamage(int level, int attackPower, int xAttack, int xDefense) {
 		int rand = new Random().nextInt(256) + 39;
-		System.out.println("xDefense: " + xDefense);
+		if (attackPower == 0) {
+			return 0;
+		}
 		return (int) (((((((((2*level)/5)+2)*xAttack*attackPower)/xDefense)/50)+2)*rand)/255);
 	}
 	
 	private void initiateAttack(Pokemon user, Pokemon target, Moves chosenMove, int damage) {
 		int rand = new Random().nextInt(100);
 		if (rand >= chosenMove.getAttackAcc()) {
-			System.out.println(user.getPokemonName() + "'s attack missed...'");
+			target.reduceHealth(damage);
+			System.out.println (user.getPokemonName() + " used " + chosenMove.getBattleText() + "! ");
+			calculateEffects(user, target, chosenMove);
+			
 		} else {
 			// MAKE SOUND EFFECT?
-			target.reduceHealth(damage);
-			calculateEffects(target, chosenMove);
+			System.out.println(user.getPokemonName() + "'s attack missed...");
 		}
 	}
 	
-	private void calculateEffects (Pokemon target, Moves chosenMove) {
+	private void calculateEffects (Pokemon user, Pokemon target, Moves chosenMove) {
 		int rand = new Random().nextInt(100);
 		if (chosenMove.getSuccessRate() > rand) {
 			for (int i = 0; i < chosenMove.getStatusChanges().length; i++) {
 				if (chosenMove.getStatusChanges()[i].statusCondition != StatusCondition.DEFAULT_STATE) {
 					target.setConditions(chosenMove.getStatusChanges()[i].statusCondition);
 				} else {
+					// reference equality, must be the same object...
+					if (user == target) {
+						System.out.print(target.getPokemonName() + "'s");
+					} else {
+						System.out.print("Opposing " + target.getPokemonName() + "'s");
+					}
+					
 					target.setTempPokemonStats(chosenMove.getStatusChanges()[i], chosenMove.getStatLevel());
 				}
 			}

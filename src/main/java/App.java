@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Scanner;
+import javax.swing.JOptionPane;
 public class App {
     static boolean turnIsOver = false;
     static ArrayList<Pokemon> partyOne;
@@ -10,11 +12,23 @@ public class App {
         Pokemon mew1 = new Mew();
         Pokemon mew2 = new Mew();
 
+
        //System.out.println("Health: " + mew1.getTempPokemonStats().getHealth());
-       System.out.println("Welcome!");
+       System.out.println("Welcome to Pokemon!");
        System.out.println("-----");
-       mew1.useMove(1, mew2);
-       System.out.println("Hello Pokemon!!!");
+       System.out.println();
+       System.out.println("Move 1 : Growl");
+       System.out.println("Move 2 : Water Gun");
+       System.out.println("Move 3 : Flamethrower");
+       System.out.println("Move 4 : Leaf Blade");
+
+       Scanner sc = new Scanner(System.in);
+       System.out.println("Choose an above move");
+       String s = sc.nextLine();
+       int foo = Integer.parseInt(s);
+       sc.close();
+       mew1.useMove(foo, mew2);
+       System.out.println("Remaining health of " + mew2.getTempPokemonStats().getHealth());
        
        //System.out.println("Mew 2 health : " + mew2.getHealth1());
             

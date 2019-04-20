@@ -1,1 +1,3 @@
-public enum Priority {}
+public enum Priority {
+    FIRST, DEFAULT, LAST;
+}

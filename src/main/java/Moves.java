@@ -1,9 +1,10 @@
 public enum Moves {
     
-    FLAMETHROWER("flamethrower!", 95, 100, PokeType.FIRE, AttackCategory.SPECIAL, Target.CHOOSE_ONE, 0),
-    LEAF_BLADE("leaf blade!", 90, 100, PokeType.GRASS, AttackCategory.PHYSICAL, Target.CHOOSE_ONE, 0),
-    SPLASH("splash!  But nothing happened...", 0, 100, PokeType.WATER, AttackCategory.SPECIAL, Target.NO_TARGET, 0),
-    WATER_GUN("water gun!", 40, 100,PokeType.WATER, AttackCategory.SPECIAL, Target.REGULAR, 0);
+    FLAMETHROWER("flamethrower", 95, 100, PokeType.FIRE, AttackCategory.SPECIAL, Target.REGULAR, 0),
+    LEAF_BLADE("leaf blade", 90, 100, PokeType.GRASS, AttackCategory.PHYSICAL, Target.REGULAR, 0),
+    SPLASH("splash", 0, 100, PokeType.WATER, AttackCategory.SPECIAL, Target.REGULAR, 0),
+    GROWL("growl", 0, PokeType.WATER, AttackCategory.SPECIAL, Target.REGULAR, 100, Increment.FELL, StatusChange.ATTACK),
+    WATER_GUN("water gun", 40, 100,PokeType.WATER, AttackCategory.SPECIAL, Target.REGULAR, 0);
 
     private String battleText = "";
     private int attackPower = 0;
