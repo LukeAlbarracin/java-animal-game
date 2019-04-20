@@ -14,11 +14,19 @@ public class Pokemon {
 		Moves chosenMove = moveSet[moveNumber];
 		int[] allTargets = chosenMove.getTarget().getAllTargets();
 	
+		System.out.println("enemy:" + ((enemy == null) ? "is null": "not null"));
+		System.out.println("chose move: " + ((chosenMove == null) ? "is null": "not null"));
+
 		for (int i = 0; i < allTargets.length; i++) {
 			if (allTargets[i] == 3) {
-				DamageEngine.getInstance().calcDamage(this, enemy, chosenMove);
+				DamageEngine engine = DamageEngine.getInstance();
+				System.out.println("engine: " + ((engine == null) ? "is null": "not null"));
+				engine.calcDamage(this, enemy, chosenMove); 
+				
 			} 
 		} 
+
+		System.out.println("Get here.");
 
 		if (chosenMove.getSecondaryTarget() == Target.SELF_INFLICT) {
 			tempStats.setHealth(tempStats.getHealth() - chosenMove.getAttackPower());
@@ -43,7 +51,6 @@ public class Pokemon {
 	public TempStats getTempPokemonStats() {
 		return this.tempStats;
 	}
-
 
 	public void setTempPokemonStats(StatusChange statusChange, Increment statLevel) {
 		this.tempStats.setVagueStat(statusChange, statLevel);

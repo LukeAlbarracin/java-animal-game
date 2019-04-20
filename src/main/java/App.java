@@ -10,8 +10,12 @@ public class App {
         Pokemon mew1 = new Mew();
         Pokemon mew2 = new Mew();
 
+       //System.out.println("Health: " + mew1.getTempPokemonStats().getHealth());
+       System.out.println("Welcome!");
+       System.out.println("-----");
        mew1.useMove(1, mew2);
        System.out.println("Hello Pokemon!!!");
+       
        //System.out.println("Mew 2 health : " + mew2.getHealth1());
             
     }

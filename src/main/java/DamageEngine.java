@@ -1,11 +1,15 @@
 import java.util.Random;
 class DamageEngine {
-	private static DamageEngine calc;
+	private static DamageEngine _instance;
 
 	private DamageEngine() {}
 
 	public static DamageEngine getInstance() {
-		return calc;
+		if (_instance == null) {
+			System.out.println("Instance is null");
+			_instance = new DamageEngine();
+		} 
+		return _instance;
 	}
 
 	public void calcDamage (Pokemon attacker, Pokemon target, Moves chosenMove) {
@@ -20,6 +24,7 @@ class DamageEngine {
 
 	private int calcDamage(int level, int attackPower, int xAttack, int xDefense) {
 		int rand = new Random().nextInt(256) + 39;
+		System.out.println("xDefense: " + xDefense);
 		return (int) (((((((((2*level)/5)+2)*xAttack*attackPower)/xDefense)/50)+2)*rand)/255);
 	}
 	
