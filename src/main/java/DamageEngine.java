@@ -32,7 +32,10 @@ class DamageEngine {
 	
 	private void initiateAttack(Pokemon user, Pokemon target, Moves chosenMove, int damage) {
 		int rand = new Random().nextInt(100);
-		if (rand >= chosenMove.getAttackAcc()) {
+		int hitChance = (int) (chosenMove.getAttackAcc() * (user.getBasePokemonStats().getTempStats().tempHealth /
+															target.getBasePokemonStats().getTempStats().EVASIVENESS));
+
+		if (rand >= hitChance) {
 			target.reduceHealth(damage);
 			System.out.println (user.getPokemonName() + " used " + chosenMove.getBattleText() + "! ");
 			calculateEffects(user, target, chosenMove);

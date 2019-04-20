@@ -7,32 +7,23 @@ public class App {
     static ArrayList<Pokemon> partyTwo;
     static int battleSize = 1; // Up to 3     
     public static void main (String args[]) {
-        //DamageCalculator calc = DamageCalculator.getInstance();
-        
         Pokemon mew1 = new Mew();
         Pokemon mew2 = new Mew();
-
-
-       //System.out.println("Health: " + mew1.getTempPokemonStats().getHealth());
-       System.out.println("Welcome to Pokemon!");
-       System.out.println("-----");
-       System.out.println();
-       System.out.println("Move 1 : Growl");
-       System.out.println("Move 2 : Water Gun");
-       System.out.println("Move 3 : Flamethrower");
-       System.out.println("Move 4 : Leaf Blade");
-
-       Scanner sc = new Scanner(System.in);
-       System.out.println("Choose an above move");
-       String s = sc.nextLine();
-       int foo = Integer.parseInt(s);
-       sc.close();
-       mew1.useMove(foo, mew2);
-
-       System.out.println("Remaining health of " + mew2.getBasePokemonStats().getHealth());
        
-       //System.out.println("Mew 2 health : " + mew2.getHealth1());
-            
+       System.out.println("Welcome to Pokemon!\n");   
+       simMove(mew1, mew2);
+       System.out.println("Remaining health of " + mew2.getBasePokemonStats().getTempHealth());
+    }
+
+    public static void simMove (Pokemon p, Pokemon target) {
+        System.out.println("------------");
+        for (int i = 0; i < p.moveSet.length; i++) {
+            System.out.println("Move [" + (i+1) + "] : " + p.moveSet[i].getBattleText().toUpperCase());
+        }
+        System.out.println("------------");
+        int moveNumber = Integer.parseInt(new Scanner(System.in).nextLine());
+
+        p.useMove(moveNumber, target);
     }
 }
 

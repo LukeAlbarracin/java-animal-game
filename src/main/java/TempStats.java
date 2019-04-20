@@ -2,48 +2,56 @@ import java.util.Random;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TempStats {
-	public final int EVASIVENESS = 100;
-	public final int iValue = new Random().nextInt(32);
-	public int tempHealth;
-	public HashMap<Stats,StatsMods> statMods = new HashMap<>(Map.of(Stats.ATTACK, StatsMods.DEFAULT,
+public class TempStats implements Cloneable {
+	final int EVASIVENESS = 100;
+	final int I_VALUE = new Random().nextInt(32);
+	int tempHealth;
+	HashMap<Stats,StatsMods> statMods = new HashMap<>(Map.of(Stats.ATTACK, StatsMods.DEFAULT,
 																	Stats.SP_ATTACK, StatsMods.DEFAULT,
 																	Stats.DEFENSE, StatsMods.DEFAULT,
 																	Stats.SP_DEFENSE, StatsMods.DEFAULT,
 																	Stats.SPEED, StatsMods.DEFAULT,
 																	Stats.EVASIVENESS, StatsMods.DEFAULT,
 																	Stats.ACCURACY, StatsMods.DEFAULT));
-	public HashMap<Stats,Integer> effortValues = new HashMap<>(Map.of(Stats.ATTACK, 0,
+	HashMap<Stats,Integer> effortValues = new HashMap<>(Map.of(Stats.ATTACK, 0,
 																	  Stats.SP_ATTACK, 0,
 																	  Stats.DEFENSE, 0,
 																	  Stats.SP_DEFENSE, 0,
 																	  Stats.SPEED, 0,
 																	  Stats.HEALTH, 0));
 
-	public void setMod(StatsMods statStage, Increment statLevel) {
-		statStage = statStage.getNextStage(statStage.getIndex(statStage), statLevel.levelChange);
+	public Object clone() throws CloneNotSupportedException {
+		TempStats replica = (TempStats) super.clone();
+		replica.tempHealth = this.tempHealth;
+		replica.statMods = this.statMods;
+		replica.effortValues = this.effortValues;
+		return replica;
+	} 
+
+	void setMod(Stats stat, StatsMods statStage, Increment statLevel) {
+		statMods.put(stat, statStage.getNextStage(statStage.getIndex(statStage), statLevel.levelChange));
 	}
 
-	public void matchStat (StatusChange statusChange, Increment statLevel) {
+	void matchStat (StatusChange statusChange, Increment statLevel) {
 		// HANDLE IF +- 6 STAGES, AND FOR STAGE 0 MAKE SURE NOTHING HAPPENS
 		switch (statusChange) {
 			case ATTACK :
-				setMod(this.statMods.get(Stats.ATTACK), statLevel);
+				setMod(Stats.ATTACK, this.statMods.get(Stats.ATTACK), statLevel);
 				break;
 			case SPECIAL_ATTACK :
-				setMod(this.statMods.get(Stats.SP_ATTACK), statLevel);
+				setMod(Stats.SP_ATTACK, this.statMods.get(Stats.SP_ATTACK), statLevel);
 				break;
 			case DEFENSE :
-				setMod(this.statMods.get(Stats.DEFENSE), statLevel);
+				setMod(Stats.DEFENSE, this.statMods.get(Stats.DEFENSE), statLevel);
 				break;
 			case SPECIAL_DEFENSE :
-				setMod(this.statMods.get(Stats.SP_DEFENSE), statLevel);
+				setMod(Stats.SP_DEFENSE, this.statMods.get(Stats.SP_DEFENSE), statLevel);
 				break;
 			case SPEED :
-				setMod(this.statMods.get(Stats.SPEED), statLevel);
+				setMod(Stats.SPEED, this.statMods.get(Stats.SPEED), statLevel);
 				break;
 			case EVASIVENESS :
-				setMod(this.statMods.get(Stats.EVASIVENESS), statLevel);
+				setMod(Stats.EVASIVENESS, statMods.get(Stats.EVASIVENESS), statLevel);
 				break;
 			default :
 				break;
@@ -57,7 +65,7 @@ public class TempStats {
 		}
 	}
 
-	public void setTempHealth (int health) {
+	void setTempHealth (int health) {
 		this.tempHealth = health;
 	}
 

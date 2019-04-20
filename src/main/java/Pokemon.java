@@ -7,15 +7,21 @@ public class Pokemon {
 	protected String pokemonName;
 	protected ArrayList<StatusCondition> conditions = new ArrayList<StatusCondition>();
 	protected Moves[] moveSet = {Moves.GROWL, Moves.WATER_GUN, Moves.FLAMETHROWER, Moves.LEAF_BLADE};
-	 
-	void useMove(int moveNumber, Pokemon enemy) {
+
+
+
+	void useMove(int moveNumber, Pokemon target) {
 		Moves chosenMove = moveSet[moveNumber-1];
 		int[] allTargets = chosenMove.getTarget().getAllTargets();
 
 		for (int i = 0; i < allTargets.length; i++) {
 			if (allTargets[i] == 3) {
 				DamageEngine engine = DamageEngine.getInstance();
-				engine.calcDamage(this, enemy, chosenMove); 
+				engine.calcDamage(this, target, chosenMove); 
+				if (target.getBasePokemonStats().getHealth() <= 0) {
+					System.out.println(target.getPokemonName() + "has fainted...");
+					target.setStatus(false);
+				}
 			} 
 		} 
 
@@ -23,7 +29,10 @@ public class Pokemon {
 			reduceHealth(chosenMove.getAttackPower());
 		} else if (chosenMove.getSecondaryTarget() == Target.RECOIL) {
 			reduceHealth(chosenMove.getRecoilDamage());
-			System.out.println("It's hit with recoil");
+			System.out.println("It's hit with recoil!");
+		}
+		if (this.getBasePokemonStats().getTempHealth() <= 0) {
+			System.out.println(this.pokemonName + " fainted!");
 		}
 		
 	}

@@ -18,6 +18,7 @@ public class PokeStats implements Cloneable {
 		this.speed = 10;
 		this.health = 25;
 		this.level = 25;
+		this.tempStats.tempHealth = this.health;
 	}
 
 	public PokeStats (int level, int attack, int spAttack, int defense, int spDefense, int speed, int health) {
@@ -28,32 +29,42 @@ public class PokeStats implements Cloneable {
 		this.spDefense = spDefense;
 		this.speed = speed;
 		this.health = health;
+		this.tempStats.tempHealth = this.health;
 	}
 
 	public Object clone() throws CloneNotSupportedException {
-		PokeStats statsClone = (PokeStats) super.clone();
-		statsClone.setAttack(this.attack);
-		statsClone.setSpAttack(this.spAttack);
-		statsClone.setDefense(this.defense);
-		statsClone.setSpDefense(this.spDefense);
-		statsClone.setSpeed(this.speed);
-		statsClone.setHealth(this.health);
-		return statsClone;
+		PokeStats replica = (PokeStats) super.clone();
+		replica.setAttack(this.attack);
+		replica.setSpAttack(this.spAttack);
+		replica.setDefense(this.defense);
+		replica.setSpDefense(this.spDefense);
+		replica.setSpeed(this.speed);
+		replica.setHealth(this.health);
+		replica.setTempStats(((this.tempStats.clone() == null) ? new TempStats() : this.tempStats.clone()));
+		return replica;
 	} 
 
 	public void levelUp () {
-		// Do some math stuff
+		this.level++;
 	}
 
 	public TempStats getTempStats() {
 		return this.tempStats;
 	}
 
+	public void setTempStats (Object tempStats) {
+		if (tempStats instanceof TempStats) {
+			this.tempStats = (TempStats) tempStats;
+		} else {
+			System.out.println("Error in cloning method of PokeStats / TempStats. Null Pointer...");
+		}
+	}
+
 	public int getAttack() {
 		Stats stat = Stats.ATTACK;
-		int eValue = (tempStats.effortValues.containsKey(stat) ? 0 : tempStats.effortValues.get(stat));
-		double mod = (tempStats.statMods.containsKey(stat) ? 1 : tempStats.statMods.get(stat).getValue());
-		return (int) ((((this.attack * 2 + tempStats.iValue + (eValue/4)) * (this.level/100)) + 5) * mod);
+		int eValue = (tempStats.effortValues.containsKey(stat) ? tempStats.effortValues.get(stat) : 0);
+		double mod = (tempStats.statMods.containsKey(stat) ? tempStats.statMods.get(stat).getValue() : 1);
+		return (int) ((((this.attack * 2 + tempStats.I_VALUE + (eValue/4)) * (this.level/100)) + 5) * mod);
 	}
 	
 	public void setAttack(int attack) {
@@ -62,9 +73,9 @@ public class PokeStats implements Cloneable {
 	
 	public int getSpAttack() {
 		Stats stat = Stats.SP_ATTACK;
-		int eValue = (tempStats.effortValues.containsKey(stat) ? 0 : tempStats.effortValues.get(stat));
-		double mod = (tempStats.statMods.containsKey(stat) ? 1 : tempStats.statMods.get(stat).getValue());
-		return (int) ((((this.spAttack * 2 + tempStats.iValue + (eValue/4)) * (this.level/100)) + 5) * mod);
+		int eValue = (tempStats.effortValues.containsKey(stat) ? tempStats.effortValues.get(stat) : 0);
+		double mod = (tempStats.statMods.containsKey(stat) ? tempStats.statMods.get(stat).getValue() : 1);
+		return (int) ((((this.spAttack * 2 + tempStats.I_VALUE + (eValue/4)) * (this.level/100)) + 5) * mod);
 	}
 
 	public void setSpAttack(int spAttack) {
@@ -73,9 +84,9 @@ public class PokeStats implements Cloneable {
 	
 	public int getDefense() {
 		Stats stat = Stats.DEFENSE;
-		int eValue = (tempStats.effortValues.containsKey(stat) ? 0 : tempStats.effortValues.get(stat));
-		double mod = (tempStats.statMods.containsKey(stat) ? 1 : tempStats.statMods.get(stat).getValue());
-		return (int) ((((this.defense * 2 + tempStats.iValue + (eValue/4)) * (this.level/100)) + 5) * mod);
+		int eValue = (tempStats.effortValues.containsKey(stat) ? tempStats.effortValues.get(stat) : 0);
+		double mod = (tempStats.statMods.containsKey(stat) ? tempStats.statMods.get(stat).getValue() : 1);
+		return (int) ((((this.defense * 2 + tempStats.I_VALUE + (eValue/4)) * (this.level/100)) + 5) * mod);
 	}
 	
 	public void setDefense(int defense) {
@@ -84,9 +95,9 @@ public class PokeStats implements Cloneable {
 
 	public int getSpDefense() {
 		Stats stat = Stats.SP_DEFENSE;
-		int eValue = (tempStats.effortValues.containsKey(stat) ? 0 : tempStats.effortValues.get(stat));
-		double mod = (tempStats.statMods.containsKey(stat) ? 1 : tempStats.statMods.get(stat).getValue());
-		return (int) ((((this.spDefense * 2 + tempStats.iValue + (eValue/4)) * (this.level/100)) + 5) * mod);
+		int eValue = (tempStats.effortValues.containsKey(stat) ? tempStats.effortValues.get(stat) : 0);
+		double mod = (tempStats.statMods.containsKey(stat) ? tempStats.statMods.get(stat).getValue() : 1);
+		return (int) ((((this.spDefense * 2 + tempStats.I_VALUE + (eValue/4)) * (this.level/100)) + 5) * mod);
 	}
 
 	public void setSpDefense(int spDefense) {
@@ -95,9 +106,9 @@ public class PokeStats implements Cloneable {
 	
 	public int getSpeed() {
 		Stats stat = Stats.SPEED;
-		int eValue = (tempStats.effortValues.containsKey(stat) ? 0 : tempStats.effortValues.get(stat));
-		double mod = (tempStats.statMods.containsKey(stat) ? 1 : tempStats.statMods.get(stat).getValue());
-		return (int) ((((this.speed * 2 + tempStats.iValue + (eValue/4)) * (this.level/100)) + 5) * mod);
+		int eValue = (tempStats.effortValues.containsKey(stat) ? tempStats.effortValues.get(stat) : 0);
+		double mod = (tempStats.statMods.containsKey(stat) ? tempStats.statMods.get(stat).getValue() : 1);
+		return (int) ((((this.speed * 2 + tempStats.I_VALUE + (eValue/4)) * (this.level/100)) + 5) * mod);
 	}
 	
 	public void setSpeed(int speed) {
@@ -106,7 +117,7 @@ public class PokeStats implements Cloneable {
 	
 	public int getHealth() {
 		Stats stat = Stats.HEALTH;
-		int eValue = (tempStats.effortValues.containsKey(stat) ? 0 : tempStats.effortValues.get(stat));
+		int eValue = (tempStats.effortValues.containsKey(stat) ? tempStats.effortValues.get(stat) : 0);
 		return (int) (((tempStats.tempHealth * 2 + (eValue/4)) * (this.level/100)) + this.level + 10);
 	}
 
