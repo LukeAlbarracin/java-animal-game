@@ -8,8 +8,12 @@ public class Pokemon {
 	protected ArrayList<StatusCondition> conditions = new ArrayList<StatusCondition>();
 	protected Moves[] moveSet = {Moves.GROWL, Moves.WATER_GUN, Moves.FLAMETHROWER, Moves.LEAF_BLADE};
 
+	public Pokemon () {
+		baseStats = new PokeStats();
+	}
+
 	public Pokemon (int health, int attack, int defense, int spAttack, int spDefense, int speed) {
-		final int level = 25;
+		final int level = 50; // DEFAULT LEVEL FOR NOW
 		this.baseStats = new PokeStats(level, health, attack, defense, spAttack, spDefense, speed);
 	}
 

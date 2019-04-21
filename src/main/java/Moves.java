@@ -4,7 +4,9 @@ public enum Moves {
     LEAF_BLADE("leaf blade", 90, 100, PokeType.GRASS, AttackCategory.PHYSICAL, Target.REGULAR, 0),
     SPLASH("splash", 0, 100, PokeType.WATER, AttackCategory.SPECIAL, Target.REGULAR, 0),
     GROWL("growl", 0, PokeType.WATER, AttackCategory.SPECIAL, Target.REGULAR, 100, Increment.FELL, StatusChange.ATTACK),
-    WATER_GUN("water gun", 40, 100,PokeType.WATER, AttackCategory.SPECIAL, Target.REGULAR, 0);
+    WATER_GUN("water gun", 40, 100,PokeType.WATER, AttackCategory.SPECIAL, Target.REGULAR, 0),
+    FLAME_WHEEL("flame wheel", 60, 100, PokeType.FIRE, AttackCategory.PHYSICAL, Target.REGULAR,
+         10, Increment.NOTHING, StatusChange.INFLICT_BURN);
 
     private String battleText = "";
     private int attackPower = 0;

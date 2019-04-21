@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-import javax.swing.JOptionPane;
 public class App {
     static boolean turnIsOver = false;
     static ArrayList<Pokemon> partyOne;
@@ -9,6 +8,10 @@ public class App {
     public static void main (String args[]) {
         Pokemon mew1 = new Mew();
         Pokemon mew2 = new Mew();
+
+        Moves[] moves = {Moves.GROWL, Moves.FLAMETHROWER, Moves.WATER_GUN};
+        MainPage mp = new MainPage(moves);
+        mp.run();
        
        System.out.println("Welcome to Pokemon!\n");   
        simMove(mew1, mew2);
