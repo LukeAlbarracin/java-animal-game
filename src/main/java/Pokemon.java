@@ -8,7 +8,10 @@ public class Pokemon {
 	protected ArrayList<StatusCondition> conditions = new ArrayList<StatusCondition>();
 	protected Moves[] moveSet = {Moves.GROWL, Moves.WATER_GUN, Moves.FLAMETHROWER, Moves.LEAF_BLADE};
 
-
+	public Pokemon (int health, int attack, int defense, int spAttack, int spDefense, int speed) {
+		final int level = 25;
+		this.baseStats = new PokeStats(level, health, attack, defense, spAttack, spDefense, speed);
+	}
 
 	void useMove(int moveNumber, Pokemon target) {
 		Moves chosenMove = moveSet[moveNumber-1];

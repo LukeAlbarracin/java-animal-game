@@ -15,7 +15,7 @@ public class App {
        System.out.println("Remaining health of " + mew2.getBasePokemonStats().getTempHealth());
     }
 
-    public static void simMove (Pokemon p, Pokemon target) {
+    private static void simMove (Pokemon p, Pokemon target) {
         System.out.println("------------");
         for (int i = 0; i < p.moveSet.length; i++) {
             System.out.println("Move [" + (i+1) + "] : " + p.moveSet[i].getBattleText().toUpperCase());

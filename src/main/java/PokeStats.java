@@ -1,5 +1,3 @@
-import java.util.HashMap;
-import java.util.Random;
 public class PokeStats implements Cloneable {
 	private int attack;
 	private int spAttack;

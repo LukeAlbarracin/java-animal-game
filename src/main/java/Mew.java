@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 public class Mew extends Pokemon {
     public Mew() {
         super.ownerNumber = 1;
