@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
+
 import javax.swing.JFrame;
 import javax.swing.JToggleButton;
 import javax.swing.JButton;
@@ -10,16 +13,24 @@ import java.awt.Color;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
+import com.google.errorprone.annotations.Var;
+
 public class MainPage implements Runnable, ActionListener {
     private final int MAX_CHOICES = 4;
+    private GridLayout gridLayout = new GridLayout(MAX_CHOICES, MAX_CHOICES);
     private JToggleButton[] buttons = new JToggleButton[4];
     private JFrame frame = new JFrame("Pokemon Game");
     private Moves[] moves;
+    private int playerNumber;
     private Player player;
     private Player opponent;
 
     public MainPage (Moves[] moves) {
         this.moves = moves;
+    }
+
+    public ArrayList<PokeName> getPokemonParty() {
+        return player.getPokemonParty();
     }
 
     @Override
@@ -33,11 +44,23 @@ public class MainPage implements Runnable, ActionListener {
         frame.add(startButton);
         
         startButton.addActionListener(event -> {
-            startButton.setVisible(false);
-            frame.remove(startButton);
-            initButtons();
+            try {
+                joinGame();
+                frame.remove(startButton);
+                frame.revalidate();
+                frame.repaint();
+                initButtons();
+            }
+            catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         });
         
+    }
+
+    private synchronized void joinGame() throws InterruptedException {
+        App.playersJoined++;
+        playerNumber = App.playersJoined;
     }
 
     private void initButtons() {
@@ -60,11 +83,23 @@ public class MainPage implements Runnable, ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
        for (int i = 0; i < buttons.length; i++) {
-            if (event.getSource() == buttons[i]) {
-                player.getPokemonParty().get(0).pokemon.useMove(i,
-                opponent.getPokemonParty().get(0).pokemon);
+           try {
+                if (event.getSource() == buttons[i]) {
+                    attack(i);
+                }
+                frame.remove(buttons[i]);
+                frame.revalidate();
+                frame.repaint();
+            }
+            catch (NullPointerException e) {
+               System.err.println("Error in MainPage class: " + e.toString());
             }
         }
+        frame.setLayout(new GridLayout());
+    }
+
+    private void attack(int moveNumber)  {
+        player.getPokemonParty().get(0).pokemon.useMove(moveNumber,opponent.getPokemonParty().get(0).pokemon);
     }
 
 }

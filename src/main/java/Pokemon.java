@@ -17,7 +17,7 @@ public class Pokemon {
 		this.baseStats = new PokeStats(level, health, attack, defense, spAttack, spDefense, speed);
 	}
 
-	void useMove(int moveNumber, Pokemon target) {
+	 void useMove(int moveNumber, Pokemon target) {
 		Moves chosenMove = moveSet[moveNumber-1];
 		int[] allTargets = chosenMove.getTarget().getAllTargets();
 
